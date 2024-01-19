@@ -8,28 +8,33 @@
 
 #include "Object.hpp"
 
-void Object::moveForTime(double dt){
+void Object::moveForTime(const double &dt){
     double dx = getHorizontalDistanceForTime(dt);
     double dy = getVerticalDistanceForTime(dt);
     double dv_h = getHorizontalVelocityForTime(dt);
     double dv_v = getVerticalVelocityForTime(dt);
     
-    x += dx;
-    y += dy;
+    position.x += dx;
+    position.y += dy;
+    position.t += dt;
+    
     v_h += dv_h;
     v_v += dv_v;
 }
 
-void Object::reset(double h){
-    x = 0.0;
-    y = h;
+void Object::setInitialVelocity(const double &velocity, const double &angle) {
+    v_h = cos(angle) * velocity;
+    v_v = sin(angle) * velocity;
 }
 
-double Object::isGettingCloserTo0(){
-    if(y > 0)
-        return true;
-    if (y < 0 && v_v > 0)
-        return true;
+void Object::reset(const Point &position) {
+    this->position = position;
+}
+
+double Object::isMoving() const {
+    if(position.y > 0) return true;
+    
+    if (position.y < 0 && v_v > 0) return true;
     
     return false;
 }

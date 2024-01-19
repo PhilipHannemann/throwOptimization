@@ -9,15 +9,14 @@
 #include "UI.hpp"
 
 
-UI::UI(int width, int hight){
+UI::UI(const int width, const int hight): simulator{0, std::make_shared<Ball>(0, DEFAULT_ALPHA, DEFAULT_MASS)} {
     this->width = width;
     this->hight = hight;
     
     coordinateWidth = 20;
-    coordinateHight = 10;
+    coordinateHight = coordinateWidth / WINDOW_ASPECT_RATIO;
     
     displayConsole();
-    
     
     if (!glfwInit()) {
         printf("Window couldn't be started!\n");
@@ -35,54 +34,56 @@ UI::UI(int width, int hight){
     openWindow();
 }
 
-void UI::displayConsole(){
+void UI::displayConsole() const {
     std::cout << "Wurfsimmulation\n";
     std::cout << "===============\n";
-    
-    //std::cout << "\nWas ist die Abwurfhöhe? ";
-    //std::cin >> h;
-    //std::cout << "\n";
 }
 
-void UI::setupCoordinateSize(){
-    double xMax = 19, yMax = 9;
+void UI::setupCoordinateSize() {
+    double yMax{0};
     
-    for (int i = 0; i < positions.size(); i++) {
-        Point p = positions[i];
-        if (p.x > xMax) {
-            xMax = p.x;
-        }
-        if (p.y > yMax) {
-            yMax = p.y;
+    for (const auto &position : positions) {
+        if (position.y > yMax) {
+            yMax = position.y;
         }
     }
     
-    coordinateWidth = xMax + 1;
-    coordinateHight = yMax + 1;
+    maxPointHeight = yMax;
+    yMax = yMax < 10 ? 10 : yMax;
+    coordinateHight = yMax + 1 ;
+    coordinateWidth = coordinateHight * WINDOW_ASPECT_RATIO;
 }
 
-void UI::calculate(){
-    Ball *ball = new Ball(h, alpha, m);
+void UI::calculate() {
     //Simmulator simmulator(v, h, alpha, ball, 0.0001);
-    Simmulator simmulator(h, ball);
+
+    const auto startTime = high_resolution_clock::now();
+    const Param angleMax{M_PI_2}, angleMin{-M_PI_2};
+    simulator.reset(startPosition);
     
-    //simmulator.startSimmulation();
-    //simmulator.startOptimalCalculationForTarget(20);
-    Param angleMax, angleMin;
-    angleMax.angle = M_PI_2;
-    angleMin.angle = h <= 0 ? 0 : -M_PI_2;
-    Result r = simmulator.fastOptimalCalculationForTarget(20, angleMin, angleMax);
+    Result simulationResult;
     
-    //positions = simmulator.getPositions();
-    positions = r.positions;
+    if (optimizedAlgorithm) {
+        simulationResult = simulator.fastOptimalCalculationForTarget(20, angleMin, angleMax);
+    } else {
+        simulationResult = simulator.startOptimalCalculationForTarget(20);
+    }
+    
+    const auto endTime = high_resolution_clock::now();
+    
+    this->positions = simulationResult.positions;
+    this->optimalAngle = simulationResult.angle;
+    this->optomalVelocity = simulationResult.vMin;
+    
+    const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    executionTimeInMilliseconds = duration.count();
+    
     setupCoordinateSize();
     setupViewPort();
-    
-    startTime = glfwGetTime();
 }
 
 
-void UI::openWindow(){
+void UI::openWindow() {
     
     glfwMakeContextCurrent(window);
     
@@ -99,7 +100,7 @@ void UI::openWindow(){
     
     setupViewPort();
     
-    do{
+    do {
         // Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
         glClear( GL_COLOR_BUFFER_BIT );
         
@@ -110,40 +111,31 @@ void UI::openWindow(){
         glfwPollEvents();
         
         if((glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_ENTER)) && !simmulationComplete){
-            
-            Ball *ball = new Ball(h, alpha, m);
-            //Simmulator simmulator(v, h, alpha, ball, 0.0001);
-            Simmulator simmulator(h, ball);
-            
-            //simmulator.startSimmulation();
-            //simmulator.startOptimalCalculationForTarget(20);
-            Param angleMax, angleMin;
-            angleMax.angle = M_PI_2;
-            angleMin.angle = h <= 0 ? 0 : -M_PI_2;
-            Result r = simmulator.fastOptimalCalculationForTarget(20, angleMin, angleMax);
-            
+            calculate();
             simmulationComplete = true;
-            //positions = simmulator.getPositions();
-            positions = r.positions;
-            setupCoordinateSize();
-            setupViewPort();
-            
-            startTime = glfwGetTime();
         }
         
         if (glfwGetKey(window, GLFW_KEY_UP) && !simmulationComplete) {
-            h+=0.1;
+            startPosition.y += 0.1;
             calculate();
-            
-        }
-        if (glfwGetKey(window, GLFW_KEY_DOWN) && !simmulationComplete) {
-            //if(h > 0)
-            h-=0.1;
+        } else if (glfwGetKey(window, GLFW_KEY_DOWN) && !simmulationComplete) {
+            startPosition.y -= 0.1;
             calculate();
-        }
-        if (glfwGetKey(window, GLFW_KEY_R)) {
+        } else if (glfwGetKey(window, GLFW_KEY_RIGHT) && !simmulationComplete) {
+            startPosition.x += 0.1;
+            calculate();
+        } else if (glfwGetKey(window, GLFW_KEY_LEFT) && !simmulationComplete) {
+            startPosition.x -= 0.1;
+            calculate();
+        } else if (glfwGetKey(window, GLFW_KEY_R)) {
             simmulationComplete = false;
             positions = {};
+        } else if (glfwGetKey(window, GLFW_KEY_1)){
+            optimizedAlgorithm = false;
+            calculate();
+        } else if (glfwGetKey(window, GLFW_KEY_2)){
+            optimizedAlgorithm = true;
+            calculate();
         }
         
     } // Check if the ESC key was pressed or the window was closed
@@ -154,7 +146,7 @@ void UI::openWindow(){
     glfwTerminate();
 }
 
-void UI::setupViewPort(){
+void UI::setupViewPort() const {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-1, coordinateWidth, -1, coordinateHight, 0, 1);
@@ -162,15 +154,16 @@ void UI::setupViewPort(){
     glLoadIdentity();
 }
 
-void UI::drawScene(){
+void UI::drawScene() {
     drawCoordinateSystem();
-    drawBallMovement();
     drawBall();
+    drawBallMovement();
+    drawExecutionTime();
 }
-
 
 void UI::drawCoordinateSystem(){
     glColor3f(1.0,0.0,0.0); // red x
+    glLineWidth(5.0f);
     
     glBegin(GL_LINES);    // x aix
         glVertex2f(-1.0, 0.0f);
@@ -179,15 +172,22 @@ void UI::drawCoordinateSystem(){
     
     glBegin(GL_TRIANGLES);    // arrow
         glVertex2f(coordinateWidth, 0);
-        glVertex2f(coordinateWidth-0.5, -0.25);
-        glVertex2f(coordinateWidth-0.5, 0.25);
+        glVertex2f(coordinateWidth - 0.5, -0.25);
+        glVertex2f(coordinateWidth - 0.5, 0.25);
+    glEnd();
+    
+    glBegin(GL_LINES);    // goal
+        glVertex2f(20, -0.25);
+        glVertex2f(20, 0.25);
     glEnd();
     
     glFlush();
     
+    drawText(19.5f, -0.75f, {1, 1, 1}, "20m");
+    
     
     // y
-    glColor3f(0.0,1.0,0.0); // green y
+    glColor3f(0.0f,1.0f,0.0f); // green y
     glBegin(GL_LINES);
         glVertex3f(0.0, -1.0f, 0.0f);
         glVertex3f(0.0, coordinateHight, 0.0f);
@@ -199,38 +199,66 @@ void UI::drawCoordinateSystem(){
         glVertex2f(0.25, coordinateHight-0.5);
     glEnd();
     
-    glFlush();
+    glBegin(GL_LINES);    // highest point
+        glVertex2f(-0.25, maxPointHeight);
+        glVertex2f(0.25, maxPointHeight);
+    glEnd();
     
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << maxPointHeight;
+    const auto maxHeightString = stream.str() + "m";
+    drawText(0.25f, maxPointHeight, {1, 1, 1},  maxHeightString);
+    
+    glFlush();
 }
 
-void UI::drawBallMovement(){
-    glColor3f(1.0,0.0,0.0); // red x
+void UI::drawExecutionTime() const {
+    const auto algorithmus = optimizedAlgorithm ? "Alg2: " : "Alg1: ";
+    drawText(coordinateWidth - 3.0, coordinateHight - 1.0, {1, 1, 1}, algorithmus + std::to_string(executionTimeInMilliseconds) + "ms");
+    glFlush();
+}
+
+void UI::drawBallMovement() {
+    glColor3f(1.0,1.0,1.0); // red x
     
     glBegin(GL_LINE_STRIP);    // x aix
     
-    for (int i = 0; i < positions.size(); i++) {
-        Point p = positions[i];
-        //if(glfwGetTime() - startTime > p.t && startTime > 0){
-            glVertex2f(p.x, p.y);
-        //}
+    for (const auto &position : positions) {
+        glVertex2f(position.x, position.y);
     }
+    
     glEnd();
     
     glFlush();
 }
 
 
-void UI::drawBall(){
-    glColor3f(1.0, 0.0, 0.0); // red x
+void UI::drawBall() {
+    glColor3f(1.0, 1.0, 1.0); // red x
     
     glBegin(GL_LINE_LOOP);
-        double radius = 0.5;
-        for (int i=0; i < 360; i++){
-            float degInRad = i*DEG2RAD;
-            glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius + h);
+        const float radius = 0.5f;
+        for (auto angle = 0U; angle < 360; angle += 3) {
+            const float angleInRad = angle * DEG2RAD;
+            glVertex2f(cos(angleInRad) * radius + startPosition.x, sin(angleInRad) * radius + startPosition.y);
         }
 
     glEnd();
     
     glFlush();
+}
+
+void UI::drawText(const float &x, const float &y, const Color &color, const string &text) const {
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    const float scaleFactor{1.f / 300.f};
+    glScalef(scaleFactor, scaleFactor, scaleFactor);
+    
+    glColor3f(color.r, color.g, color.b);
+    
+    for (const auto &character : text) {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, (unsigned char)character);
+    }
+    
+    glPopMatrix();
 }

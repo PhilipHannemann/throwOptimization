@@ -16,10 +16,10 @@
 
 class Ball: public Object {
 protected:
-    double getHorizontalDistanceForTime(double dt);
-    double getHorizontalVelocityForTime(double dt);
-    double getVerticalDistanceForTime(double dt);
-    double getVerticalVelocityForTime(double dt);
+    double getHorizontalDistanceForTime(const double &dt) const;
+    double getHorizontalVelocityForTime(const double &dt) const;
+    double getVerticalDistanceForTime(const double &dt) const;
+    double getVerticalVelocityForTime(const double &dt) const;
     
 public:
     Ball(double h, double alpha, double m);

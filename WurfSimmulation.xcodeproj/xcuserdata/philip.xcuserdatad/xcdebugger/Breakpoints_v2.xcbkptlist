@@ -14,13 +14,13 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "Simmulator::startOptimalCalculationForTarget(s)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "Simmulator::startOptimalCalculationForTarget(targetDistance)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "DB970D31-29FD-481A-8214-0EF63321AE3D - c3c88b199e54b2e1"
+                  uuid = "DB970D31-29FD-481A-8214-0EF63321AE3D - cc787df2a6e2d46c"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -35,7 +35,7 @@
                   offsetFromSymbolStart = "655">
                </Location>
                <Location
-                  uuid = "DB970D31-29FD-481A-8214-0EF63321AE3D - c3c88b199e54b2e1"
+                  uuid = "DB970D31-29FD-481A-8214-0EF63321AE3D - cc787df2a6e2d46c"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -55,22 +55,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "929CE29B-EDF7-4AD1-916C-3A51348F9CA5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "Simmulator::startOptimalCalculationForTarget(s)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "44B77F23-00CF-4BFD-8F2F-DD180A72730A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -78,74 +62,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C876D07B-E31C-4FC5-BDDD-6C55F4C0F3E6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "Simmulator::fastOptimalCalculationForTarget(s, angleMin, angleMax)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "742D82C3-2B80-4917-86EF-50BBD948C7AB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A336F291-71C2-44E1-A33E-0EE0AF1C6111"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "Simmulator::fastOptimalCalculationForTarget(s, angleMin, angleMax)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BF5A1229-1437-42A5-A595-B7CE4AEC7CBA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "abs(pos - s) &lt; 0.1"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -159,25 +78,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "38256FEA-4C27-4A40-82DE-8447E601DB81"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WurfSimmulation/Simmulator.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -191,9 +94,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -207,9 +110,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,9 +126,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,9 +142,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -255,9 +158,9 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -271,9 +174,73 @@
             filePath = "WurfSimmulation/Simmulator.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "Simmulator::getVMinForAngle(angle, s)"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "Simmulator::getVMinForAngle(angle, targetDistance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B231075C-056A-4807-9CFB-135F5C5D27C7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WurfSimmulation/Simmulator.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "Simmulator::getMinimumVelocityForAngle(angle, targetDistance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FF3B345-8895-4814-BCEC-350D40C8FAAB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WurfSimmulation/Simmulator.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "Simmulator::startOptimalCalculationForTarget(targetDistance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "010F6B0A-7C1D-4E3E-B4A6-5C019DC3C4B0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WurfSimmulation/Simmulator.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "Simmulator::startOptimalCalculationForTarget(targetDistance)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E933A6C9-CBF3-4FB8-BD6A-2FA8B5D7ABEC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WurfSimmulation/Simmulator.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "Simmulator::startOptimalCalculationForTarget(targetDistance)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

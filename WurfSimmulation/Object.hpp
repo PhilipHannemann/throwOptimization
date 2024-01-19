@@ -9,39 +9,41 @@
 #ifndef Object_hpp
 #define Object_hpp
 
+#include <math.h>
+#include "Point.h"
+
 class Object {
 protected:
     double m, c;
-    double x, y;
+    Point position{0.0, 0.0};
     double v_h, v_v;
     
-    virtual double getHorizontalDistanceForTime(double dt) = 0;
-    virtual double getHorizontalVelocityForTime(double dt) = 0;
-    virtual double getVerticalDistanceForTime(double dt) = 0;
-    virtual double getVerticalVelocityForTime(double dt) = 0;
+    virtual double getHorizontalDistanceForTime(const double &dt) const = 0;
+    virtual double getHorizontalVelocityForTime(const double &dt) const = 0;
+    virtual double getVerticalDistanceForTime(const double &dt) const = 0;
+    virtual double getVerticalVelocityForTime(const double &dt) const = 0;
     
 public:
-    Object(){
-        x = 0.0;
-        y = 0.0;
-    }
+    Object() {}
     virtual Object* clone() const = 0;
     
-    void setHorizintalVelocity(double v) {v_h = v;}
-    void setVerticalVelocity(double v) {v_v = v;}
-    void setHight(double h) {y = h;}
-    void setDistance(double x) {this->x = x;}
+    void setHorizintalVelocity(const double &velocity) {v_h = velocity;}
+    void setVerticalVelocity(const double &velocity) {v_v = velocity;}
+    void setInitialVelocity(const double &velocity, const double &angle);
+    void setHeight(const double &height) {position.y = height;}
+    void setDistance(const double &xDistance) {position.x = xDistance;}
     
-    void moveForTime(double dt);
-    void reset(double h);
+    void moveForTime(const double &dt);
+    void reset(const Point &position);
     
-    double getHorizintalVelocity(){return v_h;}
-    double getVerticalVelocity(){return v_v;}
-    double getHight(){return y;}
-    double getDistance(){return x;}
-    double getMass(){return m;}
-    double getDrag(){return c;}
-    double isGettingCloserTo0();
+    double getHorizintalVelocity() const {return v_h;}
+    double getVerticalVelocity() const {return v_v;}
+    double getHeight() const {return position.y;}
+    double getDistance() const {return position.x;}
+    Point getPosition() const { return position; }
+    double getMass() const {return m;}
+    double getDrag() const {return c;}
+    double isMoving() const;
     
 };
 
